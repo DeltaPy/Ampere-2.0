@@ -9,6 +9,6 @@
     "dotenv": "^10.0.0"
   },
   "scripts": {
-    "test": "node ./src/index.js"
+    "start": "node ./src/index.js"
   }
 }
