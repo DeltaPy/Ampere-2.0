@@ -2,8 +2,8 @@ const { SlashCommandBuilder } = require("@discordjs/builders");
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName("play")
-    .setDescription("Plays music if in a voice channel.")
+    .setName('play')
+    .setDescription('Plays music if in a voice channel.')
     .addStringOption(option => 
         option.setName('song')
         .setDescription('The song you want to play.')
@@ -34,15 +34,15 @@ module.exports = {
         queue.destroy();
         return await interaction.reply({ content: "Could not join your voice channel!", ephemeral: true });
     }
-    await interaction.deferReply();
+    await interaction.deferReply({ephemeral: true});
     // search query and play
         const track = await player.search(query, {
             requestedBy: interaction.user
         }).then(x => x.tracks[0]);
-        if (!track) return await interaction.followUp({ content: `❌ - Track **${query}** not found!` });
+        if (!track) return await interaction.followUp({ content: `❌ - Track **${query}** not found!`, ephemeral: true });
 
         queue.play(track);
 
-        return await interaction.followUp({ content: `🎵 - Now playing **${track.title}**!` });
+        // return await interaction.followUp({ content: '**Loading...**', ephemeral: true });
   }
 };
