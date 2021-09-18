@@ -1,1 +1,1 @@
-Worker: node run start
+Worker: node ./src/index.js
