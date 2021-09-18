@@ -1,1 +1,1 @@
-Worker: yarn run start
+Worker: node ./src/index.js
