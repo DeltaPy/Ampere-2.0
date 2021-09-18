@@ -8,8 +8,10 @@ client.commands = new Collection();
 // init discord-player
 const player = new Player(client, {
     ytdlOptions: {
-        quality: 'highestaudio'
-    }
+        // quality: 'highestaudio'
+    },
+    leaveOnEmptyCooldown: 300000,
+    bufferingTimeout: 150
 });
 client.player = player;
 
