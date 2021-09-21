@@ -26,6 +26,6 @@ const commandFolders = fs.readdirSync("./src/commands");
     }
     client.handlePlayerEvents(client.player);
     // client.handleEvents(eventFiles, "./src/events");
-    client.handleCommands(commandFolders, "./src/commands");
+    // client.handleCommands(commandFolders, "./src/commands");
     client.login(process.env.TOKEN);
 })();
