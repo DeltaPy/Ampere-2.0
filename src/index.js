@@ -15,17 +15,18 @@ const player = new Player(client, {
 });
 client.player = player;
 
-const functions = fs.readdirSync("./src/functions").filter(file => file.endsWith(".js"));
-const eventFiles = fs.readdirSync("./src/events").filter(file => file.endsWith(".js"));
-const commandFolders = fs.readdirSync("./src/commands");
+// const functions = fs.readdirSync("./src/functions").filter(file => file.endsWith(".js"));
+// const eventFiles = fs.readdirSync("./src/events").filter(file => file.endsWith(".js"));
+// const commandFolders = fs.readdirSync("./src/commands");
 
 
 (async () => {
-    for (file of functions) {
-        require(`./functions/${file}`)(client);
-    }
-    client.handlePlayerEvents(client.player);
+    // for (file of functions) {
+    //     require(`./functions/${file}`)(client);
+    // }
+    // client.handlePlayerEvents(client.player);
     // client.handleEvents(eventFiles, "./src/events");
     // client.handleCommands(commandFolders, "./src/commands");
+    console.log("Test")
     client.login(process.env.TOKEN);
 })();
