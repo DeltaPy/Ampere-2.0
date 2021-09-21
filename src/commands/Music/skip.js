@@ -1,4 +1,5 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
+const { MessageEmbed } = require("discord.js");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -7,6 +8,12 @@ module.exports = {
 
     async execute(interaction, client) {
         const queue = client.player.getQueue(interaction.guildId);
+
+        // Emmbed
+        const skipEmbed = new MessageEmbed()
+        .setColor("#00FFFF")
+        .setDescription('Track **skipped**.')
+
         // check if user is in vc
         if(!interaction.member.voice.channelId) {
             return await interaction.reply({ content : '😔 - You are not in a voice channel.', ephemeral: true});
@@ -20,7 +27,7 @@ module.exports = {
 
         try {
             queue.skip();
-            return await interaction.reply({ content: 'Track **skipped**.'});
+            return await interaction.reply({ embeds: [skipEmbed]});
         } catch (e) {
             console.error(e);
             return await interaction.reply({ content: 'Could not skip track.'});
