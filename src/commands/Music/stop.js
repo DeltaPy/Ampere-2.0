@@ -8,7 +8,6 @@ module.exports = {
 
     async execute(interaction, client) {
         const queue = client.player.getQueue(interaction.guildId);
-        const force = interaction.options.get('force').value;
 
         // Emmbed
         const stopEmbed = new MessageEmbed()
@@ -31,7 +30,7 @@ module.exports = {
         } catch (error) {
             // check if music is playing
             if(!queue || !queue.playing) return await interaction.reply({ content : '🤔 - No music is currently playing!', ephemeral: true});
-            console.error(error);
+            // console.error(error);
         }
     }
 }
