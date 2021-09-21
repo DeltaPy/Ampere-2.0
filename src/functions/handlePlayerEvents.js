@@ -3,6 +3,7 @@ module.exports = (client) => {
     client.handlePlayerEvents = (player) => {
         let lastMessageNP;
         player.on("trackStart", async (queue, track) => {
+            
             const nowPlaying = new MessageEmbed()
             .setDescription(`🎵 - Now playing **[${track.title}](${track.url})**.`)
             .setColor("#00FFFF")

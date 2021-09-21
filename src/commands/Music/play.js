@@ -25,6 +25,13 @@ module.exports = {
             channel: interaction.channel
         }
     });
+
+    // search query
+    const result = await player.search(query, {
+        requestedBy: interaction.user
+    });
+    if (!result) return await interaction.followUp({ content: `❌ - Track **${query}** not found!`, ephemeral: true });
+
     // console.log(query);
 
     // join vc 
@@ -35,13 +42,10 @@ module.exports = {
         return await interaction.reply({ content: "Could not join your voice channel!", ephemeral: true });
     }
     await interaction.deferReply({ephemeral: true});
-    // search query and play
-        const track = await player.search(query, {
-            requestedBy: interaction.user
-        }).then(x => x.tracks[0]);
-        if (!track) return await interaction.followUp({ content: `❌ - Track **${query}** not found!`, ephemeral: true });
+        //Play found track or playlist
+        result.playlist ? queue.addTracks(result.tracks) : queue.addTrack(result.tracks[0]);
+        if (!queue.playing) await queue.play();
 
-        queue.play(track);
 
         // return await interaction.followUp({ content: '**Loading...**', ephemeral: true });
   }
