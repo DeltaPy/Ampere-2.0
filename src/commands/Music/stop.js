@@ -16,7 +16,7 @@ module.exports = {
             return await interaction.reply({ content : '🤔 - The bot is in another voice channel.', ephemeral: true});
         }
         // check if music is playing
-        if(!queue || !queue.playing) return await interaction.reply({ content : '🤔 - No music is currently playing!'})
+        if(!queue || !queue.playing) return await interaction.reply({ content : '🤔 - No music is currently playing!', ephemeral: true})
         // delete queue and stop
         queue.destroy();
         return await interaction.reply({ content : '⏹️ - Music **stopped**!'})
