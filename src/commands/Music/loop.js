@@ -1,5 +1,6 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { QueueRepeatMode } = require('discord-player');
+const { MessageEmbed } = require("discord.js");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -17,6 +18,7 @@ module.exports = {
 
     async execute(interaction, client) {
         const queue = client.player.getQueue(interaction.guildId);
+
         // check if user is in vc
         if(!interaction.member.voice.channelId) {
             return await interaction.reply({ content : '😔 - You are not in a voice channel.', ephemeral: true});
@@ -29,10 +31,16 @@ module.exports = {
         if(!queue || !queue.playing) return await interaction.reply({ content : '🤔 - No music is currently playing!', ephemeral: true})
 
         const selectedMode = interaction.options.get('mode').value;
-        const mode = (selectedMode === QueueRepeatMode.TRACK ? 'Track' : selectedMode === QueueRepeatMode.QUEUE ? 'Queue' : selectedMode === QueueRepeatMode.OFF ? 'Off' : 'Autoplay');
+        const mode = (selectedMode === QueueRepeatMode.TRACK ? 'Track 🔂' : selectedMode === QueueRepeatMode.QUEUE ? 'Queue 🔁' : selectedMode === QueueRepeatMode.OFF ? 'Off' : 'Autoplay');
+
+        // Emmbed
+        const loopEmbed = new MessageEmbed()
+        .setColor("#00FFFF")
+        .setDescription(`Loop mode: **${mode}**`)
+
         try {
             queue.setRepeatMode(selectedMode);
-            return await interaction.reply({ content: `Loop mode: **${mode}**`});
+            return await interaction.reply({ embeds: [loopEmbed]});
         } catch (e) {
             console.error(e);
             return await interaction.reply({ content: 'Could not change loop mode.'});

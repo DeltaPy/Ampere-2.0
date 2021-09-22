@@ -1,4 +1,5 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
+const { MessageEmbed } = require("discord.js");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -7,6 +8,12 @@ module.exports = {
 
     async execute(interaction, client) {
         const queue = client.player.getQueue(interaction.guildId);
+
+        // Emmbed
+        const stopEmbed = new MessageEmbed()
+        .setColor("#00FFFF")
+        .setDescription('⏹️ - Music **stopped**!')
+
         // check if user is in vc
         if(!interaction.member.voice.channelId) {
             return await interaction.reply({ content : '😔 - You are not in a voice channel.', ephemeral: true});
@@ -15,10 +22,15 @@ module.exports = {
         if(interaction.guild.me.voice.channelId && interaction.member.voice.channelId !== interaction.guild.me.voice.channelId){
             return await interaction.reply({ content : '🤔 - The bot is in another voice channel.', ephemeral: true});
         }
-        // check if music is playing
-        if(!queue || !queue.playing) return await interaction.reply({ content : '🤔 - No music is currently playing!', ephemeral: true})
-        // delete queue and stop
-        queue.destroy();
-        return await interaction.reply({ content : '⏹️ - Music **stopped**!'})
+
+        try {
+            // delete queue and stop
+            queue.destroy();
+            return await interaction.reply({ embeds: [stopEmbed]});
+        } catch (error) {
+            // check if music is playing
+            if(!queue || !queue.playing) return await interaction.reply({ content : '🤔 - No music is currently playing!', ephemeral: true});
+            // console.error(error);
+        }
     }
 }
