@@ -1,5 +1,6 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { MessageEmbed } = require("discord.js");
+const { ReactionMenu } = require('@xenon-devs/discordjs-reaction-menu');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -16,21 +17,31 @@ module.exports = {
         let startTrack = 0;
         let endTrack = 10;
 
-        const tracks = queue.tracks.slice(startTrack, endTrack).map((m, i) => {
-            return `${i + 1}: **[${m.title}](${m.url})**`;
+        let tracks = queue.tracks.slice(startTrack, endTrack).map((t, i) => {
+            return `${i + 1}: **[${t.title}](${t.url})** - by: ${t.requestedBy.username}#${t.requestedBy.discriminator}`;
         });
 
-        console.log(tracks);
+        if(tracks.length == 0) tracks[0] = "**Queue is empty**";
+        // console.log(tracks);
 
         // Emmbed
-        const queueEmbed = new MessageEmbed()
+        let queueEmbed = new MessageEmbed()
         .setTitle('Queue')
         .setColor("#00FFFF")
         .setDescription(`${tracks.join('\n')}`)
-        .addField("Now Playing: ",`🎵 - **[${currentTrack.title}](${currentTrack.url})**` )
+        .addField("Now Playing: ",`🎵 - **[${currentTrack.title}](${currentTrack.url})**`);
 
         try {
-            interaction.reply({embeds:[queueEmbed], ephemeral: true});
+            await interaction.reply({embeds:[queueEmbed], ephemeral: false});
+
+            //get the sended interaction and add reactions if queue longer than 10
+            if(queue.tracks.length > 10) {
+                interaction.fetchReply()
+                .then((message) => {
+                    message.react('⬅️').then(() => {message.react('➡️')});
+                });
+
+            }
         } catch (e) {
             console.error(e);
             return await interaction.reply({ content: 'Could not display the queue.', ephemeral: true});

@@ -43,7 +43,7 @@ module.exports = {
     }
     await interaction.deferReply({ephemeral: true});
         //Play found track or playlist
-        result.playlist ? queue.addTracks(result.tracks) : queue.addTrack(result.tracks[0]);
+        result.playlist ? queue.addTracks(result.tracks) : await queue.play(result.tracks[0]);
         if (!queue.playing) await queue.play();
 
 

@@ -1,12 +1,14 @@
 const { MessageEmbed } = require('discord.js');
 module.exports = (client) => {
     client.handlePlayerEvents = (player) => {
-        let lastMessageNP;
+        let lastMessageNP = 0;
         player.on("trackStart", async (queue, track) => {
             
             const nowPlaying = new MessageEmbed()
             .setDescription(`🎵 - Now playing **[${track.title}](${track.url})**.`)
             .setColor("#00FFFF")
+            .addField('Requested by: ',`${track.requestedBy.username}#${track.requestedBy.discriminator}`)
+
             // delete last message if exist
             if(lastMessageNP) lastMessageNP.delete();
 
@@ -27,14 +29,28 @@ module.exports = (client) => {
             const queueEnd = new MessageEmbed()
             .setDescription('😞 - The queue has ended, leaving...')
             .setColor("#00FFFF")
-            queue.metadata.channel.send({embeds:[queueEnd]});
+
+            if(lastMessageNP) lastMessageNP.delete();
+
+            queue.metadata.channel.send({embeds:[queueEnd]}).then((message) => {
+                setTimeout(() => {
+                    message.delete();
+                }, 15000);
+            });
         });
 
         player.on("channelEmpty", (queue) => {
             const channelEmpty = new MessageEmbed()
             .setDescription('🤨 - Nobody is in the voice channel, leaving...')
             .setColor("#00FFFF")
-            queue.metadata.channel.send({embeds:[channelEmpty]});
+
+            if(lastMessageNP) lastMessageNP.delete();
+            
+            queue.metadata.channel.send({embeds:[channelEmpty]}).then((message) => {
+                setTimeout(() => {
+                    message.delete();
+                }, 15000);
+            });
         });
 
         // player.on("botDisconnect", (queue) => {

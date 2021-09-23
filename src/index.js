@@ -11,7 +11,8 @@ const player = new Player(client, {
         // quality: 'highestaudio'
     },
     leaveOnEmptyCooldown: 300000,
-    bufferingTimeout: 150
+    leaveOnEnd: false,
+    bufferingTimeout: 1000
 });
 client.player = player;
 

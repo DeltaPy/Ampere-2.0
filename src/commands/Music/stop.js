@@ -26,7 +26,11 @@ module.exports = {
         try {
             // delete queue and stop
             queue.destroy();
-            return await interaction.reply({ embeds: [stopEmbed]});
+            return await interaction.reply({ embeds: [stopEmbed]}).then((message) => {
+                setTimeout(() => {
+                    message.delete();
+                }, 15000);
+            });
         } catch (error) {
             // check if music is playing
             if(!queue || !queue.playing) return await interaction.reply({ content : '🤔 - No music is currently playing!', ephemeral: true});
