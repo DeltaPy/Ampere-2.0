@@ -53,9 +53,10 @@ module.exports = (client) => {
             });
         });
 
-        // player.on("botDisconnect", (queue) => {
-        //     queue.metadata.send('Disconnected.');
-        // });
+        player.on("botDisconnect", (queue) => {
+            // queue.metadata.send('Disconnected.');
+            console.log('Disconnected!');
+        });
 
         // Error catching
         player.on("error", (queue, error) => {
