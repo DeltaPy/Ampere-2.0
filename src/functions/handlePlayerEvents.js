@@ -5,7 +5,7 @@ module.exports = (client) => {
         player.on("trackStart", async (queue, track) => {
             
             const nowPlaying = new MessageEmbed()
-            .setDescription(`🎵 - Now playing **[${track.title}](${track.url})**.`)
+            .setDescription(`🎵 - Now playing **[${track.title} - ${track.author}](${track.url})**.`)
             .setColor("#00FFFF")
             .addField('Requested by: ',`${track.requestedBy.username}#${track.requestedBy.discriminator}`)
 
