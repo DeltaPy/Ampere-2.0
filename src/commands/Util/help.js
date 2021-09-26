@@ -21,6 +21,7 @@ module.exports = {
             { name: '/remove', value: 'Removes inputed track from queue.', inline: true },
             { name: '/queue', value: 'Displays the current queue.', inline: true },
             { name: '/loop', value: 'Changes the loop mode.', inline: true },
+            { name: '/shuffle', value: 'Shuffles the queue.', inline: true },
         )
         
         try {
