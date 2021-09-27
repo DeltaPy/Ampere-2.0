@@ -4,7 +4,7 @@ const { MessageEmbed } = require("discord.js");
 module.exports = {
     data: new SlashCommandBuilder()
     .setName('stop')
-    .setDescription('Stops the music and disconnects bot.'),
+    .setDescription('Stops the music and disconnects the bot.'),
 
     async execute(interaction, client) {
         const queue = client.player.getQueue(interaction.guildId);
