@@ -34,7 +34,11 @@ module.exports = (client) => {
 
             queue.metadata.channel.send({embeds:[queueEnd]}).then((message) => {
                 setTimeout(() => {
-                    message.delete();
+                    try {
+                        message.delete();
+                    } catch (e) {
+                        console.error(e);
+                    }
                 }, 15000);
             });
         });
