@@ -20,6 +20,7 @@ module.exports = {
             { name: '/resume', value: 'Resumes paused track.', inline: true },
             { name: '/remove', value: 'Removes inputed track from queue.', inline: true },
             { name: '/queue', value: 'Displays the current queue.', inline: true },
+            { name: '/np', value: 'Displays the current playing track.', inline: true },
             { name: '/loop', value: 'Changes the loop mode.', inline: true },
             { name: '/shuffle', value: 'Shuffles the queue.', inline: true },
         )
