@@ -147,11 +147,6 @@
   dependencies:
     "@types/node" "*"
 
-"@xenon-devs/discordjs-reaction-menu@^1.0.4":
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/@xenon-devs/discordjs-reaction-menu/-/discordjs-reaction-menu-1.0.4.tgz#f439340bbecf4e2936dbf4f955703d01a27b2f69"
-  integrity sha512-kNtCv5nQJT8fZ19lO2HCUIbZWf/cDsBlUwl0UV43zrICGAHjIYFTxby9puDEJdt2EfEttf59TIw5MnCe+CpT7g==
-
 abab@^2.0.3, abab@^2.0.5:
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/abab/-/abab-2.0.5.tgz#c0b678fb32d60fc1219c784d6a826fe385aeb79a"

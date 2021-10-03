@@ -1,6 +1,5 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { MessageEmbed } = require("discord.js");
-const { ReactionMenu } = require('@xenon-devs/discordjs-reaction-menu');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -31,6 +30,7 @@ module.exports = {
         .setDescription(`${tracks.join('\n')}`)
         .addField("Now Playing: ",`🎵 - **[${currentTrack.title}](${currentTrack.url})**`);
 
+
         try {
             await interaction.reply({embeds:[queueEmbed], ephemeral: false});
 
@@ -40,7 +40,6 @@ module.exports = {
                 .then((message) => {
                     message.react('⬅️').then(() => {message.react('➡️')});
                 });
-
             }
         } catch (e) {
             console.error(e);
